@@ -1,0 +1,39 @@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h4 id="offcanvasRightLabel " class="container">Register</h4>
+    <button type="button" class="btn-close text-reset fs-3" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form method="POST" action='/register'>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingname" placeholder="username" name="username">
+        <label for="floatingname">Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingemail" placeholder="name@example.com" name="email">
+        <label for="floatingemail">Email address</label>
+      </div>
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-sm example" name="course">
+        <option selected>Choose your Course</option>
+        <option value="O level" >O level</option>
+        <option value="A level" >A level</option>
+        <option value="B level" >B level</option>
+        <option value="C level" >C level</option>
+        <option value="CCC" >CCC</option>
+      </select>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingcPassword" placeholder="Password"
+          name="confirmpassword">
+        <label for="floatingcPassword">Confirm Password</label>
+      </div>
+      <div class="form-floating mb-3 ">
+        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="reset" class="btn btn-default">Clear</button>
+      </div>
+    </form>
+  </div>
+</div>

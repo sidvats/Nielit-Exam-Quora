@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('partials/head.ejs')%>
+        <title>Nielit Exam Quora</title>
+</head>
+
+<body>
+    <div class="fixed">
+            <%-include('partials/header.ejs')%>
+            <%-include('partials/profilesec/profilenav.ejs')%>
+            <hr class=" bar">
+    </div>
+    <div class="container">
+        <div class="d-flex flex-column">
+            <div style="margin-top: 20rem;">
+                <div class="alert alert-primary d-flex" >
+                    <div>
+                        <img src="/images/user.svg" alt="User Logo" width="100rem" height="100rem" class="img-fluid mt-4">
+                    </div>
+                    <div class="mx-4 mt-4">
+                        <h2 class="text-success "><%=user.username%></h2>
+                        <h4 class="text-success"><%=user.email%></h4>
+                        <h5 class="text-success"><%=user.course%></h5>
+                        <h5 class="text-success">Number of Questions Posted = <%=user.questionposted.length%></h5>
+                        <h5 class="text-success">Number of Answers Posted = <%=user.answerposted.length%></h5>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-info">Question Posted By Me </h2>
+               <%-include('partials/profilesec/question.ejs')%>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('partials/head.ejs')%>
+        <title>Nielit Exam Quora</title>
+</head>
+
+<body>
+    <div style="background-color: #141E30;">
+        <%-include('partials/header.ejs')%>
+        <%-include('partials/nav.ejs')%>
+        <%-include('partials/login.ejs')%>
+        <%-include('partials/register.ejs')%>
+        <hr class=" bar">
+    </div>
+    <div class="container" style="margin-top: 2%; margin-bottom: 2%;">
+        <div class="card ">
+            <div class="card-header fw-bold fs-4">
+                Question : <%=question.question %>
+            </div>
+        <%if(result) {%>
+            <%for(var i=0;i < result.answers.length ; i++){%> 
+            <div class="card-body fw-bold fs-5">
+                Answer <%=i+1%>: <%=result.answers[i].answer%>
+            </div>
+            <span>
+                <a href="/" class="btn btn-dark float-end"> Return to Home </a>
+            </span>
+            <hr class="border border-5 border-dark">
+             <% } %>
+        <% } else {%>
+            <div class="card-body fw-bold fs-5  text-danger">
+                No Answer Found
+                <span>
+                    <a href="/" class="btn btn-dark float-end"> Return to Home </a>
+                </span>
+            </div>
+         <% }%>   
+            <div class="card-footer text-muted">
+                <span class="badge bg-secondary text-dark fs-6">
+                    Subject : <%=question.subject%>
+                </span>
+                <span class="badge bg-secondary text-dark fs-6">
+                    Exam asked : <%=question.askedin.exam%> <%=question.askedin.year%>
+                </span>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<div class="d-flex flex-column">
+    <% if(data.length==0) { %>
+        <div class="alert alert-danger text-danger fw-bold fs-4">
+            You have'nt posted any question yet ! 
+            <a href="/postquestion" class="btn btn-dark text-white float-end">Post a Question</a>
+        </div>
+    <% } else { %>
+    <% data.forEach(element=>{ %>
+        <div class="card float-start mt-4">
+            <div class="card-header fw-bolder">
+                <span class="badge bg-secondary text-dark fs-6">
+                    Subject : <%=element.subject%>
+                </span>
+                <span class="badge bg-secondary text-dark fs-6">
+                    Exam asked : <%=element.askedin.exam%>
+                        <%=element.askedin.year%>
+                </span>
+            </div>
+            <div class="card-body ">
+                <u class="fw-bold"> Question</u>
+                <p class="card-title fs-4">
+                    <%= element.question %>
+                </p>
+            </div>
+            <div class="card-footer ">
+                <a href="/getanswer/:<%=element._id%>" class="btn btn-sm btn-dark float-end">Show Answer</a>
+                <a href="/addanswer/:<%=element._id%>" class="btn btn-sm btn-dark ">Add Answer</a>
+            </div>
+        </div>
+    <% }) %>
+    <% } %>
+</div>

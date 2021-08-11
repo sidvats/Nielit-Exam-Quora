@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('partials/head.ejs')%>
+        <title>Nielit Exam Quora</title>
+</head>
+
+<body>
+    <div class="fixed">
+        <%-include('partials/header.ejs')%>
+        <%-include('partials/profilesec/profilenav.ejs')%>
+        <hr class=" bar">
+    </div>
+    <div class="container">
+        <div class="d-flex">
+            <div style="margin-top: 21rem;">
+                <div class="card ">
+                <div class="card-header fw-bold fs-4">
+                    Question : <%=question.question %>
+                </div>
+            <%if(result) {%>
+                <%for(var i=0;i < result.answers.length ; i++){%> 
+                <div class="card-body fw-bold fs-5">
+                    Answer <%=i+1%>: <%=result.answers[i].answer%>
+                </div>
+                <span>
+                    <a href="/addanswer/:<%=question._id%>" class="btn btn-dark float-start"> Add Answer </a>
+                    <a href="/profile" class="btn btn-dark float-end"> Return to Profile </a>
+                </span>
+                <hr class="border border-5 border-dark">
+                <% } %>
+            <% } else {%>
+                <div class="card-body fw-bold fs-5 text-danger">
+                    No Answer Found
+                    <span>
+                        <a href="/addanswer/:<%=question._id%>" class="btn btn-dark float-start"> Add Answer </a>
+                        <a href="/profile" class="btn btn-dark float-end"> Return to Profile </a>
+                    </span>
+                </div>
+            <% }%>   
+            <div class="card-footer text-muted">
+                <span class="badge bg-secondary text-dark fs-6">
+                    Subject : <%=question.subject%>
+                </span>
+                <span class="badge bg-secondary text-dark fs-6">
+                    Exam asked : <%=question.askedin.exam%> <%=question.askedin.year%>
+                </span>
+            </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('partials/head.ejs')%>
+    <title>Nielit Exam Quora</title>
+</head>
+<body>
+    <div class="fixed">
+        <%-include('partials/header.ejs')%>
+        <%-include('partials/profilesec/profilenav.ejs')%>
+        <hr class=" bar">
+    </div>  
+    <div class="container">
+        <div class="d-flex flex-column">
+            <div style="margin-top: 21rem; margin-bottom: 2rem;">
+                <form method="POST" action="/saveanswer/:<%=question._id%>" class="row g-3  fs-4" style="color: mediumturquoise;">
+                    <div class="col-md-12">
+                      <label for="question" class="form-label">Question</label>
+                      <input type="textarea" class="form-control" id="question" name="question" value="<%=question.question%>" disabled>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="keywords" class="form-label">keywords</label>
+                      <input type="text" class="form-control" id="keywords" name="keywords" value="<%=question.keywords%>" disabled>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="subject" class="form-label">Subject</label>
+                      <select id="subject" class="form-select"  name="subject" disabled>
+                        <option value="<%=question.subject%>"><%=question.subject%></option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="questiontype" class="form-label">Type</label>
+                      <select name="questiontype" id="questiontype" class="form-select" disabled>
+                        <option value="<%=question.questiontype%>"><%=question.questiontype%></option>  
+                      </select>  
+                    </div>
+                    <div class="col-md-2">
+                      <label for="examasked" class="form-label">Exam Asked</label>
+                      <select name="examasked" id="examasked" class="form-select" disabled>
+                          <option value="<%=question.askedin.exam %>"><%=question.askedin.exam%></option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="yearasked" class="form-label">Year Asked</label>
+                        <input type="number" name="yearasked" value="<%=question.askedin.year%>" id="yearasked" disabled class="form-control" minlength="4">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="answer" class="form-label">Answer</label>
+                        <textarea name="answer" id="answer" rows="10" class="form-control" placeholder="Type in your answer....(Ignore to only post question)"></textarea>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary">Save Answer</button>
+                      <button type="clear" class="btn btn-default text-white">Clear</button>
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+@import url('./bootstrap.min.css');
+body{
+    background: #141E30;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-repeat: inherit;
+}  
+.text{
+    color: rgb(180, 213, 255);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 3.5rem;     
+}
+.nav{
+    font-size: 1.3rem;
+    font-weight: bolder;
+}
+.nav a{
+    color: rgb(180, 213, 255);
+}
+.bar{
+    border: 1rem solid rgb(6, 6, 200);
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 4px rgb(248, 245, 245);
+}
+.content{
+    color:rgb(128, 105, 67);
+}
+.img{
+    width:50px;
+    height:50px;
+}
+.cardcol{
+    background: #110c41;
+}
+.img:hover{
+    width:55px;
+    height:55px;
+}
+.offcanvas{
+    background-color: rgb(95, 117, 187);
+}
+.profilepic{
+    width: 10vw;
+    height: 22vh;
+    border-radius: 100%;
+}
+.line-1{
+    position: relative;  
+    margin-top: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.fixed{
+    width: 100%;
+    position: fixed;
+    z-index: 200;
+    background: #141E30; 
+}
+ .anim-typewriter{
+  animation: typewriter 4s steps(30) 1s 1  both  ;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 14em;}
+}
+

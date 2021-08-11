@@ -1,0 +1,22 @@
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas-header">
+        <h4 id="offcanvasTopLabel " class="text-center fw-bolder">Login</h4>
+        <button type="button" class="btn-close text-reset fs-3" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container">
+        <form class="d-flex " action="/login" method="POST">
+            <div class="form-floating mb-3 mx-2">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating mx-2">
+                <input type="password" class="form-control" id="floatingPass" placeholder="Password" name="password">
+                <label for="floatingPass">Password</label>
+            </div>
+            <div class="form-floating  mx-2 mt-2">
+                <button type="submit " class="btn btn-primary">Login</button>
+                <button type="reset" class="btn btn-default">Clear</button>
+            </div>
+        </form>
+    </div>
+</div>
