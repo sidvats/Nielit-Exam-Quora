@@ -19,6 +19,7 @@ router.get('/getanswer/:queid',controller.getanswer);
 router.get('/postquestion',auth,controller.postquestion);
 router.get('/addanswer/:queid',auth,controller.addanswer);
 router.get('/logout',auth,controller.logout);
-router.get('/logoutall',auth,controller.logoutall)
+router.get('/logoutall',auth,controller.logoutall);
+router.get('/livediscussion',auth,controller.livediscussion);
 
 module.exports=router;

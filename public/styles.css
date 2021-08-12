@@ -40,9 +40,11 @@ body{
     background-color: rgb(95, 117, 187);
 }
 .profilepic{
-    width: 10vw;
-    height: 22vh;
-    border-radius: 100%;
+    width: 12rem;
+    height: 24vh;
+    border-radius: 15%;
+    float: left;
+    margin: 1rem 4rem 1rem 2rem;   
 }
 .line-1{
     position: relative;  

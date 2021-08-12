@@ -34,6 +34,23 @@ app.use((req,res)=>{
 });
 
 //server
-app.listen(port,(err)=>{
+const server=app.listen(port,(err)=>{
     if(err) throw err;
+});
+//socket implementation
+var io=require('socket.io')(server);
+const users={};
+
+io.on('connection',(socket)=>{
+    socket.on('new-user-joined',name=>{
+        users[socket.id]=name;
+        socket.broadcast.emit('user-joined',name);
+    });
+    socket.on('send',message=>{
+        socket.broadcast.emit('receive',{message:message,name:users[socket.id]})
+    });
+    socket.on('disconnect',message=>{
+        socket.broadcast.emit('leftchat',users[socket.id]);
+        delete users[socket.id];
+    })
 })

@@ -31,6 +31,7 @@ const findanswer = async (req, res) => {
         }
     }catch(err){
         console.log("\n--------------Error while finding answer",err);
+        res.render('answer',{question:question[0],result:false});
     }    
 }
 
@@ -47,6 +48,7 @@ const searchquestion=async (req,res)=>{
     }catch(err)
     {
         console.log("\n-------------------Search answer error",err);
+        res.status(401).render('index',{data:[]});
     }
 }
 
@@ -107,6 +109,7 @@ const savequestion = async (req, res) => {
     }
     catch (err) {
         console.log("----------------------\nError savequestion = ", err);
+        res.redirect('/profile');
     }
 }
  
@@ -172,6 +175,7 @@ const registeruser = async (req, res) => {
 
     } catch (err) {
         console.log("----------------------\nError Register User = ", err);
+        res.stats(401).redirect('/');
     }
 }
 
@@ -206,6 +210,7 @@ const addanswer= async (req,res)=>{
         res.render('addanswer',{question});
     }catch(err){
         console.log("\n-------------------error  = ",err);
+        res.redirect('/profile');
     }    
 }
 
@@ -216,6 +221,7 @@ const profile=async (req,res)=>{
         res.render('profile',{user,data});
     }catch(err){
         console.log("\n--------------------Error Profile ",err);
+        res.redirect('/');
     }
 }
 
@@ -234,6 +240,7 @@ const getanswer=async (req,res)=>{
         }
     }catch(err){
         console.log("\n--------------Error while finding answer",err);
+        res.render('profileanswer',{question:{},result:false});
     }  
 }
 
@@ -252,6 +259,11 @@ const searchquestioninprofile= async (req,res)=>{
     }
 }
 
+const livediscussion =  (req,res)=>{
+    const username=req.user.username;
+    res.render('livediscussion',{username});
+}
+
 const logout=async (req,res)=>{
     try{
         req.user.tokens = req.user.tokens.filter(element=>{
@@ -262,7 +274,7 @@ const logout=async (req,res)=>{
         res.redirect('/');
     }catch(err){
         console.log("logout error = ",err);
-        res.status(500);
+        res.redirect('/');
     }
 }
 
@@ -278,7 +290,8 @@ const logoutall=async (req,res)=>{
     }
 }
 
+
 module.exports = {
     index, aboutus, savequestion, saveanswer, registeruser, login, findanswer ,searchquestion ,profile,
-    getanswer , logout , logoutall ,postquestion , addanswer , searchquestioninprofile , findresult
+    getanswer , logout , logoutall ,postquestion , addanswer , searchquestioninprofile , findresult , livediscussion
 }

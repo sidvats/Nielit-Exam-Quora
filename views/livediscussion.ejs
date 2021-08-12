@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%-include('partials/head.ejs')%>
+        <title>Nielit Exam Quora</title>
+    <style>
+        .messagebox{
+            box-shadow: 0px 0px 10px 0px rgb(0, 110, 255);
+            border-radius: 15px;
+            min-width: 45vw;
+            max-width: 53vh;
+            height: 50vh;
+            color: rgb(0, 0, 0);
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+        .message{
+            background-color: rgb(30, 99, 246);
+            max-width: 50%;
+            padding: 10px;
+            margin: 10px 15px 5px 15px;
+            border: 1px solid rgb(0, 0, 0);
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgb(0, 140, 255);
+            caret-color: transparent;
+            word-wrap: break-word;
+        }
+        .left{
+            float: left;
+            clear: both;
+          
+        }
+        .right{
+            float: right;
+            clear: both;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fixed">
+            <%-include('partials/header.ejs')%>
+            <%-include('partials/profilesec/profilenav.ejs')%>
+            <hr class=" bar">
+    </div>
+    <div class="container">
+        <div class="d-flex ">
+            <div style="margin-top: 22rem;">
+                <div class="d-flex  flex-column">
+                    <div class="messagebox fw-bold">
+                        <!-- Messages -->
+                    </div>
+                    <div class="send-form mb-4">
+                        <form action="#" class="d-flex flex-row" id="send">
+                            <textarea type="text" class="form-control" name="msginput" id="msginput"  rows="1"></textarea>
+                            <button class="btn btn-success mx-1" type="submit">Send</button>
+                        </form>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var audio=new Audio('/notify.mp3');
+        const socket=io('');
+        const form=document.getElementById('send');
+        const msginput=document.getElementById('msginput');
+        const messagebox=document.querySelector('.messagebox');
+
+        const append=(msg,position)=>{
+            const msgelement=document.createElement('div');
+            msgelement.innerText= msg;
+            msgelement.classList.add('message');
+            msgelement.classList.add(position);
+            console.log(msgelement);
+            messagebox.append(msgelement);
+            if(position== 'left'){
+                audio.play();
+            }
+        }
+
+        const name=`<%=username%>`;
+        socket.emit('new-user-joined',name);
+
+        socket.on('user-joined',name => {
+            append(`${name} joined the chat`,'left');
+        });
+
+        socket.on('receive',data=>{
+            console.log(data);
+            append(`${data.name} :: ${data.message}`, 'left' );
+        });
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();  //to stop reloading of page on form submit
+            const message= msginput.value;
+            console.log(message);
+            append(`You :: ${message}`,'right');
+            socket.emit('send',message);
+            msginput.value="";
+        })
+
+        socket.on('leftchat',name=>{
+            append(`${name} left the chat`,'left');
+        })
+    </script>
+</body>
+
+</html>
