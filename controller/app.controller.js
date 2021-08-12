@@ -12,7 +12,18 @@ const index = async (req, res) => {
     }
     else{
         const verifyUser = await jwt.verify(token, process.env.SECRET_KEY);
-        res.redirect('/profile');
+        const user=await userModel.findOne({_id:verifyUser._id});
+        const tokens=user.tokens.map(item => item.token);
+        if(user){
+            
+            if(tokens.some(item => item===token))
+                res.redirect('/profile');
+            else
+                res.status(200).render('index', { data });  
+        }
+        else{
+            res.status(200).render('index', { data });
+        }
     }
 }
 
@@ -31,7 +42,6 @@ const findanswer = async (req, res) => {
         }
     }catch(err){
         console.log("\n--------------Error while finding answer",err);
-        res.render('answer',{question:question[0],result:false});
     }    
 }
 
@@ -48,7 +58,6 @@ const searchquestion=async (req,res)=>{
     }catch(err)
     {
         console.log("\n-------------------Search answer error",err);
-        res.status(401).render('index',{data:[]});
     }
 }
 
@@ -109,7 +118,6 @@ const savequestion = async (req, res) => {
     }
     catch (err) {
         console.log("----------------------\nError savequestion = ", err);
-        res.redirect('/profile');
     }
 }
  
@@ -175,7 +183,6 @@ const registeruser = async (req, res) => {
 
     } catch (err) {
         console.log("----------------------\nError Register User = ", err);
-        res.stats(401).redirect('/');
     }
 }
 
@@ -210,7 +217,6 @@ const addanswer= async (req,res)=>{
         res.render('addanswer',{question});
     }catch(err){
         console.log("\n-------------------error  = ",err);
-        res.redirect('/profile');
     }    
 }
 
@@ -221,7 +227,6 @@ const profile=async (req,res)=>{
         res.render('profile',{user,data});
     }catch(err){
         console.log("\n--------------------Error Profile ",err);
-        res.redirect('/');
     }
 }
 
@@ -240,7 +245,6 @@ const getanswer=async (req,res)=>{
         }
     }catch(err){
         console.log("\n--------------Error while finding answer",err);
-        res.render('profileanswer',{question:{},result:false});
     }  
 }
 
@@ -260,7 +264,7 @@ const searchquestioninprofile= async (req,res)=>{
 }
 
 const livediscussion =  (req,res)=>{
-    const username=req.user.username;
+    const username=req.user.username; 
     res.render('livediscussion',{username});
 }
 
@@ -274,7 +278,7 @@ const logout=async (req,res)=>{
         res.redirect('/');
     }catch(err){
         console.log("logout error = ",err);
-        res.redirect('/');
+        res.status(500);
     }
 }
 

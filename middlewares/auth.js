@@ -6,9 +6,17 @@ const auth = async (req, res, next) => {
     const token = req.cookies.jwt;
     const verifyUser = await jwt.verify(token, process.env.SECRET_KEY);
     const userdetail = await userModel.findOne({ _id: verifyUser._id });
-    req.user = userdetail;
-    req.token = token;
-    next();
+    const tokens=userdetail.tokens.map(item => item.token);
+    if(userdetail){         
+      if(tokens.some(item => item===token))
+          {
+            req.user = userdetail;
+            req.token = token;
+            next();
+          }
+      else
+        res.redirect('/');
+    }
   } catch (err) {
     res.redirect('/');
   }
