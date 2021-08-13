@@ -30,17 +30,17 @@ const index = async (req, res) => {
 const findanswer = async (req, res) => {
     try {
         const questionId = req.params.queid.slice(1);
-        const result = await answerModel.find({ question: questionId });
-        if(result.length==1)                                   //after receiving qid i have to find that qid in answer.question collection and return matched result
-        {    
-            const question=await questionModel.find({_id:questionId});  
-            res.render('answer',{question:question[0],result:result[0]});
+        const result = await answerModel.findOne({ question: questionId });
+        const question=await questionModel.findOne({_id:questionId});
+        if(result)                                   //after receiving qid i have to find that qid in answer.question collection and return matched result
+        {  
+            res.render('answer',{question,result});
         }
         else{
-            const question=await questionModel.find({_id:questionId});
-            res.render('answer',{question:question[0],result:false});
+            res.render('answer',{question,result});
         }
     }catch(err){
+        res.redirect('/');
         console.log("\n--------------Error while finding answer",err);
     }    
 }
@@ -78,15 +78,32 @@ const findresult=async (req,res)=>{
     }
 }
 
-const aboutus = (req, res) => {
-    res.status(200).render('aboutus');
+const aboutus = async (req, res) => {
+    const token=req.cookies.jwt;
+    if(token === undefined ){
+        res.render('aboutus');
+    }
+    else{
+        const verifyUser = await jwt.verify(token, process.env.SECRET_KEY);
+        const user=await userModel.findOne({_id:verifyUser._id});
+        const tokens=user.tokens.map(item => item.token);
+        if(user){
+            if(tokens.some(item => item===token))
+                res.render('404');
+            else
+                res.render('aboutus');
+        }
+        else{
+            res.render('index', { data });
+        }
+    }
 }
 
 const savequestion = async (req, res) => {
     try {
-        var answer=req.body.answer;
+        var lines=req.body.question.split('\r\n');
         const quedata = new questionModel({
-            question:req.body.question,
+            question:lines,
             keywords:req.body.keywords,
             subject:req.body.subject,
             questiontype:req.body.questiontype,
@@ -97,10 +114,12 @@ const savequestion = async (req, res) => {
         });
         const qresult=await quedata.save();
         const userid=req.user._id;
-        if(qresult){
-                var quespostedid=qresult._id;
-                var result=await userModel.findOneAndUpdate({ _id:userid },{ $push: {questionposted: quespostedid} } );
-            if(answer){
+        if(qresult)
+        {
+            var quespostedid=qresult._id;
+            await userModel.findOneAndUpdate({ _id:userid },{ $push: {questionposted: quespostedid} } );
+            if(req.body.answer){
+                var answer=req.body.answer.split('\r\n');
                 const ansdata=new answerModel({
                     question:qresult._id,
                     answers :{
@@ -113,11 +132,13 @@ const savequestion = async (req, res) => {
             }
         }else{
             console.log("error in saving question");
+            res.redirect('/profile');
         }
         res.redirect('/profile');
     }
     catch (err) {
         console.log("----------------------\nError savequestion = ", err);
+        res.redirect('/profile');
     }
 }
  
@@ -126,18 +147,16 @@ const saveanswer = async (req, res) => {
         const questionId = req.params.queid.slice(1);
         var findanswer=await answerModel.findOne({question:questionId});
         if(req.body.answer){
+            const answer =req.body.answer.split('\r\n');
             if(findanswer)
             {
-                const data ={
-                        answer:req.body.answer
-                    };
-                await answerModel.findOneAndUpdate({question:questionId},{$push:{ answers : { answer : req.body.answer} }});
+                await answerModel.findOneAndUpdate({question:questionId},{$push:{ answers : { answer : answer} }});
             }else
             {
                 const data = new answerModel({
                     question:questionId,
                     answers:{
-                        answer:req.body.answer
+                        answer:answer
                     }
                 });
                 await data.save();
@@ -193,7 +212,7 @@ const login = async (req, res) => {
         if (ismatch) {
             const token = await result.generateAuthToken();
             res.cookie('jwt', token, {
-                expires: new Date(Date.now() + 3600000),
+                expires: new Date(Date.now() + 3600000*3),
                 httponly: true
             });
             var data= await questionModel.find({_id:result.questionposted});
@@ -233,15 +252,14 @@ const profile=async (req,res)=>{
 const getanswer=async (req,res)=>{
     try {
         const questionId = req.params.queid.slice(1);
-        const result = await answerModel.find({question: questionId });
-        if(result.length==1)                                   //after receiving qid i have to find that qid in answer.question collection and return matched result
-        {    
-            const question=await questionModel.find({_id:questionId});  
-            res.render('profileanswer',{question:question[0],result:result[0]});
+        const result = await answerModel.findOne({question: questionId });
+        const question=await questionModel.findOne({_id:questionId});
+        if(result)                                   //after receiving qid i have to find that qid in answer.question collection and return matched result
+        {        
+            res.render('profileanswer',{question,result});
         }
         else{
-            const question=await questionModel.find({_id:questionId});
-            res.render('profileanswer',{question:question[0],result:false});
+            res.render('profileanswer',{question:question,result:false});
         }
     }catch(err){
         console.log("\n--------------Error while finding answer",err);

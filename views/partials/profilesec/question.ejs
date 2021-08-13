@@ -19,7 +19,9 @@
             <div class="card-body ">
                 <u class="fw-bold"> Question</u>
                 <p class="card-title fs-4">
-                    <%= element.question %>
+                    <%element.question.forEach(ele =>{%>
+                        <%= ele %> <br>
+                    <%})%>
                 </p>
             </div>
             <div class="card-footer ">

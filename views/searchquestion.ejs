@@ -10,47 +10,50 @@
     <div class="fixed">
             <%-include('partials/header.ejs')%>
             <%-include('partials/profilesec/profilenav.ejs')%>
-            <hr class=" bar">
-            <div class="container mb-4">
-                <form action="/searchquestioninprofile" method="POST" class="d-flex w-75" >
-                    <input type="text" class="form-control" placeholder="Type to search ...." name="querry">
-                    <input type="submit" value="Search" class="btn btn-primary mt-2 mx-2">
-                    <input type="reset" value="Clear" class="btn btn-default text-white">
-                </form>
-            </div>
     </div>
     <div class="container">
             <div class="d-flex">
-                <div style="margin-top: 28rem;">
+                <div style="margin-top: 15rem;">
+                    <div class="container">
+                        <form action="/searchquestioninprofile" method="POST" class="d-flex flex-column" >
+                            <div><input type="text" class="form-control" placeholder="Type to search ...." name="querry"></div>
+                            <div>
+                                <input type="submit" value="Search" class="btn btn-primary mt-2 mx-2">
+                                <input type="reset" value="Clear" class="btn btn-default text-white">
+                            </div>
+                        </form>
+                    </div>
                     <% if(data.length==0) { %>
                         <div class="alert alert-danger text-danger fw-bold fs-4">
-                            Oops ! No Matching Question Found
+                            Oops ! No Question Found
                             <a href="/" class="btn btn-dark text-white float-end">Return To Home</a>
                         </div>
                     <% } else { %>
-                    <% data.forEach(element=>{ %>
-                        <div class="card mt-4">
-                            <div class="card-header fw-bolder">
-                                <span class="badge bg-secondary text-dark fs-6">
-                                    Subject : <%=element.subject%>
-                                </span>
-                                <span class="badge bg-secondary text-dark fs-6">
-                                    Exam asked : <%=element.askedin.exam%>
-                                        <%=element.askedin.year%>
-                                </span>
+                        <% data.forEach(element=>{ %>
+                            <div class="card mt-4">
+                                <div class="card-header fw-bolder">
+                                    <span class="badge bg-secondary text-dark fs-6">
+                                        Subject : <%=element.subject%>
+                                    </span>
+                                    <span class="badge bg-secondary text-dark fs-6">
+                                        Exam asked : <%=element.askedin.exam%>
+                                            <%=element.askedin.year%>
+                                    </span>
+                                </div>
+                                <div class="card-body ">
+                                    <u class="fw-bold"> Question</u>
+                                    <p class="card-title fs-4">
+                                        <% element.question.forEach((ele)=>{ %>
+                                            <%=ele%> <br>
+                                        <% }) %>    
+                                    </p>
+                                </div>
+                                <div class="card-footer ">
+                                    <a href="/addanswer/:<%=element._id%>" class="btn btn-dark float-start"> Add Answer </a>
+                                    <a href="/getanswer/:<%=element._id%>" class="btn btn-sm btn-dark float-end">Show Answer</a>
+                                </div>
                             </div>
-                            <div class="card-body ">
-                                <u class="fw-bold"> Question</u>
-                                <p class="card-title fs-4">
-                                    <%= element.question %>
-                                </p>
-                            </div>
-                            <div class="card-footer ">
-                                <a href="/addanswer/:<%=element._id%>" class="btn btn-dark float-start"> Add Answer </a>
-                                <a href="/getanswer/:<%=element._id%>" class="btn btn-sm btn-dark float-end">Show Answer</a>
-                            </div>
-                        </div>
-                    <% }) %>
+                        <% }) %>
                     <% } %>
                 </div>
             </div>

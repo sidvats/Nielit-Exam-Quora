@@ -1,14 +1,19 @@
 @import url('./bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Eczar&display=swap');
 body{
     background: #141E30;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to right, #fbfbfb, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(45deg,#141E30, #969fa8, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-repeat: inherit;
+    margin-bottom: 2rem;
+    height: 100%;
 }  
-.text{
-    color: rgb(180, 213, 255);
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 3.5rem;     
+
+.title{
+    font-family: 'Eczar', serif;
+    font-size: 3rem;
+    color: yellowgreen;
+    text-shadow: 0px 0px 10px 0px rgb(90, 212, 212);
 }
 .nav{
     font-size: 1.3rem;
@@ -17,21 +22,22 @@ body{
 .nav a{
     color: rgb(180, 213, 255);
 }
+
 .bar{
-    border: 1rem solid rgb(6, 6, 200);
-    border-radius: 8px;
+    border: rgb(6, 6, 200);
     box-shadow: 0px 0px 10px 4px rgb(248, 245, 245);
 }
 .content{
-    color:rgb(128, 105, 67);
+    color:rgb(19, 17, 17);
+    font-weight: 600;
+    line-height: 6vh;
+    word-spacing: .5vw;
 }
 .img{
     width:50px;
     height:50px;
 }
-.cardcol{
-    background: #110c41;
-}
+
 .img:hover{
     width:55px;
     height:55px;
@@ -55,14 +61,14 @@ body{
 .fixed{
     width: 100%;
     position: fixed;
-    z-index: 200;
+    z-index: 2;
     background: #141E30; 
 }
  .anim-typewriter{
-  animation: typewriter 4s steps(30) 1s 1  both  ;
+  animation: typewriter 2s steps(30) 1s 1  both  ;
 }
 @keyframes typewriter{
   from{width: 0;}
-  to{width: 14em;}
+  to{width: 16em;}
 }
 

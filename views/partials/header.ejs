@@ -1,9 +1,71 @@
-<div class="text container d-flex flex-column">
-    <div>
-        <p class="text">Nielit Exam Quora&#9997;</p>
+<div class="container d-flex flex-column mt-1">
+    <div class="d-flex flex-row justify-content-start">
+        <div><img src="/images/fly.svg" alt="Logo" width="55rem" height="55rem" style="background-color:yellowgreen;"></div>
+        <div class="mx-3"><h2 class="title">Nielit Exam Quora</h2></div>
     </div>
-    <div>
-        <h5 class="line-1 anim-typewriter ">"Find and Post previous year </h5>
-        <h5 class="line-1 anim-typewriter "> questions asked in Nielit Exams"</h5>
+    <hr style="border: 2px solid; box-shadow:0px 0px 10px 0px rgb(148, 236, 97);">
+    <div style="color: chartreuse; font-family: 'Eczar', serif; ">
+        <h4  class="typewrite" style="caret-color:transparent;" data-period="1500"
+        data-type='[ "Search for Questions","Find Answers","Register to Post Questions", "Register to Take part in live Discussion", "Register to Post Answers","All The Best" ]'>
+        <span class="wrap" style="caret-color:transparent;"></span>
+    </h4>
     </div>
 </div>
+<script>
+    var TxtType = function (el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 500;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function () {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+        var that = this;
+        var delta = 100 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+            delta = this.period;
+            this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.loopNum++;
+            delta = 500;
+        }
+
+        setTimeout(function () {
+            that.tick();
+        }, delta);
+    };
+
+    window.onload = function () {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i = 0; i < elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+                new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+        document.body.appendChild(css);
+    };
+</script>

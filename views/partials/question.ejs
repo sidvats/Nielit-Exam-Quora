@@ -1,4 +1,5 @@
-<div class="d-flex flex-column" style="margin-top: 28rem;">
+<div class="d-flex flex-column" style="margin-top: 15rem;">
+    <div><%-include('../partials/search.ejs')%></div>
     <% if(data.length==0) { %>
         <div class="alert alert-danger text-danger fw-bold fs-4">
             Oops ! No Matching Question Found
@@ -17,9 +18,11 @@
                 </span>
             </div>
             <div class="card-body ">
-                <u class="fw-bold"> Question</u>
+                <u class="fw-bold text-secondary"> Question</u>
                 <p class="card-title fs-4">
-                    <%= element.question %>
+                    <% element.question.forEach(ele=>{ %>
+                        <%=ele%> <br>
+                    <%})%>
                 </p>
             </div>
             <div class="card-footer ">

@@ -8,9 +8,7 @@
         .messagebox{
             box-shadow: 0px 0px 10px 0px rgb(0, 110, 255);
             border-radius: 15px;
-            min-width: 45vw;
-            max-width: 53vh;
-            height: 50vh;
+            height: 65vh;
             color: rgb(0, 0, 0);
             overflow-y: auto;
             margin-bottom: 1rem;
@@ -18,7 +16,7 @@
             scroll-snap-type: y proximity;
         }
         .messagebox > div:last-child {
-            scroll-snap-align: end;
+            scroll-snap-align:end;
         }
         .message{
             background-color: rgb(30, 99, 246);
@@ -48,12 +46,11 @@
     <div class="fixed">
             <%-include('partials/header.ejs')%>
             <%-include('partials/profilesec/profilenav.ejs')%>
-            <hr class=" bar">
     </div>
     <div class="container">
-        <div class="d-flex ">
-            <div style="margin-top: 22rem;">
-                <div class="d-flex  flex-column">
+        <div class="d-flex flex-column">
+            <div style="margin-top: 16rem;">
+                    
                     <div class="messagebox fw-bold " id="messagebox">
                         <!-- Messages -->
                     </div>
@@ -63,7 +60,8 @@
                             <button class="btn btn-primary mx-1" type="submit">Send</button>
                         </form>
                     </div>
-                </div>  
+                    
+                 
             </div>
         </div>
     </div>
@@ -94,13 +92,11 @@
         });
 
         socket.on('receive',data=>{
-            console.log(data);
             append(`${data.name} :: ${data.message}`, 'left' );
         });
         form.addEventListener('submit',(e)=>{
             e.preventDefault();  //to stop reloading of page on form submit
             const message= msginput.value;
-            console.log(message);
             append(`You :: ${message}`,'right');
             socket.emit('send',message);
             msginput.value="";

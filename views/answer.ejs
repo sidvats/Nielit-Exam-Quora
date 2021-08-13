@@ -12,7 +12,6 @@
         <%-include('partials/nav.ejs')%>
         <%-include('partials/login.ejs')%>
         <%-include('partials/register.ejs')%>
-        <hr class=" bar">
     </div>
     <div class="container" style="margin-top: 2%; margin-bottom: 2%;">
         <div class="card ">
@@ -22,7 +21,10 @@
         <%if(result) {%>
             <%for(var i=0;i < result.answers.length ; i++){%> 
             <div class="card-body fw-bold fs-5">
-                Answer <%=i+1%>: <%=result.answers[i].answer%>
+                Answer <%=i+1%>: 
+                <%result.answers[i].answer.forEach(ele=>{%>
+                    <%=ele%> <br>
+                <%})%>    
             </div>
             <span>
                 <a href="/" class="btn btn-dark float-end"> Return to Home </a>

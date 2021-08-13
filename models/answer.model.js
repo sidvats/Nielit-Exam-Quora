@@ -10,8 +10,15 @@ const answerSchema=new schema({
     answers:
     [
         {
-            answer:{type:String},
-            votes:{type:String,default:1}
+            answer: 
+                {
+                   type:[String] 
+                },
+            votes:
+                {
+                    type:String,
+                    default:1
+                }
         }
     ],
     timeadded:{
