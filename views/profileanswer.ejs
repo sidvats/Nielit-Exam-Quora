@@ -15,19 +15,25 @@
         <div class="d-flex flex-column">
             <div style="margin-top: 21rem;">
                 <div class="card ">
-                <div class="card-header fw-bold fs-4">
-                    Question : 
+                <div class="card-header fw-bold fs-4 d-flex">
+                    <div>
+                         Question : 
+                    </div>     
+                    <div>
                             <%question.question.forEach(ele=>{ %>
                                 <%=ele%><br>
                             <%})%>   
+                    </div>        
                 </div>
                 <%if(result) {%>
                 <%for(var i=0 ; i < result.answers.length ; i++){%> 
-                    <div class="card-body fw-bold fs-5">
-                        Answer <%=i+1%>: 
-                                        <% result.answers[i].answer.forEach(ele=>{ %>
-                                            <%=ele%> <br>
-                                        <% }) %>    
+                    <div class="card-body fw-bold fs-5 d-flex">
+                       <div class=""> Answer <%=i+1%>: </div>
+                        <div>
+                            <% result.answers[i].answer.forEach(ele=>{ %>
+                                <%=ele%> <br>
+                            <% }) %>    
+                        </div>                
                     </div>
                     <span>
                         <a href="/addanswer/:<%=question._id%>" class="btn btn-dark float-start"> Add Answer </a>

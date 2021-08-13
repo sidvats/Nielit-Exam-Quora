@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 const index = async (req, res) => {
-    const data = await questionModel.find({}).sort({timeadded:-1});
+    const data = await questionModel.find({}).limit(20).sort({timeadded:-1});
     const token=req.cookies.jwt;
     if(token === undefined ){
         res.status(200).render('index', { data });
@@ -272,7 +272,7 @@ const postquestion=(req,res)=>{
 
 const searchquestioninprofile= async (req,res)=>{
     try{
-        const data = await questionModel.find({}).sort({timeadded:-1});
+        const data = await questionModel.find({}).limit(20).sort({timeadded:-1});
         res.status(200).render('searchquestion', { data });
     }catch(err)
     {
