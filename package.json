@@ -1,7 +1,7 @@
 {
   "name": "nielit_exam_quora",
   "version": "1.0.0",
-  "description": "A Exam Assistance web application where a user can search and post nieit exam related question",
+  "description": "A Exam Assistance web application where a user can search and post nieit exam related question and take part in discussion forum",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,6 +23,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.5",
+    "nodemon": "^2.0.15",
     "socket.io": "^4.1.3"
   }
 }
